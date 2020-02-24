@@ -1,3 +1,5 @@
+import java.util.function.ToDoubleBiFunction;
+
 public class SnakeGame {
     private boolean[][] game;
     private int[] headPosition = new int[2];;
@@ -41,7 +43,6 @@ public class SnakeGame {
                 }
             }
         }
-
         return tail;
     }
 
@@ -49,8 +50,22 @@ public class SnakeGame {
     //return 3 items: the x and y position of the tail in the grid, and the length of the snake on the board
     public int[] findTailRecursive(){
         resetCounters();
-        int[] tail = new int[3];
+        int[] tail = new int[2];
+        tail = findTailRecursive(headPosition, headPosition);
 
+        int[] tail2 = new int[3];
+        tail2[0] = tail[0];
+        tail2[1] = tail[1];
+        tail2[3] = length();
+
+        return tail2;
+    }
+
+    //Starts at a position other than the head position (used for the recursive calls),
+    //Also takes in the position of the previous body position (to exclude it from deciding the next position).
+    //Increments the recursiveChecks counter with each (x',y') cell that is examined.
+    private int[] findTailRecursive(int[] currentPosition, int[] previousPosition){
+        int[] tail = new int[2];
 
         return tail;
     }
@@ -79,21 +94,20 @@ public class SnakeGame {
             count++;
         }
 
-        if(row-1 >= 0 && col + 1 < game.length && game[row-1][col+1]){  //looks for the one in upper right diagonal
-            count++;
+        return count;
+    }
+
+    public int length(){
+        int count = 0;
+
+        for(int i = 0; i < game.length; i++){
+            for(int j = 0; j < game[i].length; j++){
+                if(game[i][j]){
+                    count++;
+                }
+            }
         }
 
-        if(row+1 < game.length && col+1 < game.length && game[row+1][col+1]){ //looks for the one in lower right diagonal
-            count++;
-        }
-
-        if(row+1 < game.length && col-1 >= 0 && game[row+1][col-1]){ //looks for the one in lower left diagonal
-            count++;
-        }
-
-        if(row-1 >= 0 && col-1 >=0 && game[row-1][col-1]){ //looks for the one in upper left diagonal
-            count++;
-        }
         return count;
     }
 
