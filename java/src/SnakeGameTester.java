@@ -11,6 +11,11 @@ public class SnakeGameTester {
                           {false, false, false}};
     SnakeGame game1 = new SnakeGame(board1, 1,1);
 
+    boolean[][] board2 = {{false, false, false},
+                         {true, true, false},
+                         {false, false, false}};
+    SnakeGame game2 = new SnakeGame(board2, 1,1);
+
     /*
         * Test case 1:
         * findTailExhaustive()
@@ -26,10 +31,9 @@ public class SnakeGameTester {
 
     @Test
     public void testFindTailRecursive1(){
-        int[] expected = new int[]{0, 2, 3};
-        int[] actual = game1.findTailRecursive();
+        int[] expected = new int[]{0, 2 ,3};
 
-        assertArrayEquals(expected, actual);
+        assertArrayEquals(expected, game1.findTailRecursive());
     }
 
 }

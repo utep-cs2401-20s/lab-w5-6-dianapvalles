@@ -36,7 +36,7 @@ public class SnakeGame {
                 exhaustiveChecks++;
                 if(game[i][j]){
                     length++;
-                    if((headPosition[0] != i || headPosition[1] != j )&& neighbors(i,j) == 1){
+                    if((headPosition[0] != i || headPosition[1] != j) && neighbors(i,j) == 1){
                         tail[0] = i;
                         tail[1] = j;
                     }
@@ -67,32 +67,66 @@ public class SnakeGame {
     //Also takes in the position of the previous body position (to exclude it from deciding the next position).
     //Increments the recursiveChecks counter with each (x',y') cell that is examined.
     private int[] findTailRecursive(int[] currentPosition, int[] previousPosition){
+        int[] finalPosition = new int[2];
+        finalPosition[0] = currentPosition[0];
+        finalPosition[1] = currentPosition[1];
 
-        if((currentPosition[0] != headPosition[0] || currentPosition[1] != headPosition[1]) && neighbors(currentPosition[0], currentPosition[1]) == 1) {
-            return currentPosition;
+        if((finalPosition[0] != headPosition[0] && finalPosition[1] == headPosition[1]) || (finalPosition[0] == headPosition[0] && finalPosition[1] != headPosition[1]) || (finalPosition[0] != headPosition[0] && finalPosition[1] != headPosition[1])){
+            if(neighbors(finalPosition[0], finalPosition[1]) == 1) {
+                return currentPosition;
+            }
         }
 
-       if(currentPosition[0] + 1 != previousPosition[0] && currentPosition[0] + 1 < game.length && game[currentPosition[0]+1][currentPosition[1]]){ //checks for the below
-            previousPosition[0] = currentPosition[0];
-            currentPosition[0] = currentPosition[0] + 1;
-            recursiveChecks++;
+        //checks down
+        if(currentPosition[0] + 1 < game.length) {
+            if (currentPosition[0] + 1 != previousPosition[0]) {
+                if (game[currentPosition[0] + 1][currentPosition[1]]) {
+                    finalPosition [0] = currentPosition[0] + 1;
+                    finalPosition [1] = currentPosition[1];
+                    recursiveChecks++;
+                    return findTailRecursive(finalPosition, currentPosition);
+                }
+            }
         }
-         else if(currentPosition[0] - 1 != previousPosition[0] && currentPosition[0] - 1 >= 0 && game[currentPosition[0]-1][currentPosition[1]]){ //checks for the one above
-            previousPosition[0] = currentPosition[0];
-            currentPosition[0] = currentPosition[0] - 1;
-            recursiveChecks++;
+
+        //checks up
+        if(currentPosition[0] - 1 >= 0) {
+            if (currentPosition[0] - 1 != previousPosition[0]) {
+                if (game[currentPosition[0] - 1][currentPosition[1]]) {
+                    finalPosition [0] = currentPosition[0] - 1;
+                    finalPosition [1] = currentPosition[1];
+                    recursiveChecks++;
+                    return findTailRecursive(finalPosition, currentPosition);
+                }
+            }
         }
-        else if(currentPosition[1] + 1 != previousPosition[1] && currentPosition[1] + 1 < game.length && game[currentPosition[0]][currentPosition[1] + 1]){ //checks the one in the right
-            previousPosition[1] = currentPosition[1];
-            currentPosition[1] = currentPosition[1] + 1;
-            recursiveChecks++;
+
+        //checks right
+        if(currentPosition[1] + 1 < game.length) {
+            if (currentPosition[1] + 1 != previousPosition[1]) {
+                if (game[currentPosition[0]][currentPosition[1] + 1]) {
+                    finalPosition [0] = currentPosition[0];
+                    finalPosition [1] = currentPosition[1] + 1;
+                    recursiveChecks++;
+                    return findTailRecursive(finalPosition, currentPosition);
+                }
+            }
         }
-         else if(currentPosition[1] - 1 != previousPosition[1] && currentPosition[1] - 1 >= 0 && game[currentPosition[0]][currentPosition[1] - 1]){ //checks the one in the left
-            previousPosition[1] = currentPosition[1];
-            currentPosition[1] = currentPosition[1] - 1;
-            recursiveChecks++;
+
+        //checks left
+        if(currentPosition[1] - 1 >= 0) {
+            if (currentPosition[1] - 1 != previousPosition[1]) {
+                if (game[currentPosition[0]][currentPosition[1] - 1]) {
+                    finalPosition [0] = currentPosition[0];
+                    finalPosition [1] = currentPosition[1] - 1;
+                    recursiveChecks++;
+                    return findTailRecursive(finalPosition, currentPosition);
+                }
+            }
         }
-        return findTailRecursive(currentPosition, previousPosition);
+
+        //default (invalid) values
+        return(new int[]{-1,-1});
     }
 
     /*
