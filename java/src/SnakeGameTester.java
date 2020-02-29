@@ -8,7 +8,7 @@ public class SnakeGameTester {
                           {false, true, false},
                           {false, true, false}};
     SnakeGame game1 = new SnakeGame(board1, 1,1);
-    
+
     boolean[][] board2 = {{true, true, true},
                          {false, false, true},
                          {true, true, true}};
@@ -166,9 +166,9 @@ public class SnakeGameTester {
 
     /*
      * findTailRecursive()
-     * Test case 4: it should return the default values of an array since the head is the only true cell
+     * Test case 5: it should return the default values of an array since the head is the only true cell
      * Therefore the program should return (0,0,1)  ---> TEST PASSED
-     * game4
+     * game5
      */
     @Test
     public void testFindTailRecursive5(){
