@@ -124,6 +124,9 @@ public class SnakeGame {
                 }
             }
         }
+        else{
+            recursiveChecks++;
+        }
 
         //default (invalid) values
         return(new int[]{0, 0, 1});

@@ -21,9 +21,8 @@ public class SnakeGameTester {
                           {false, false, false, false, true}};
     SnakeGame game3 = new SnakeGame(board3, 4,4);
 
-    boolean[][] board4 = {{false, false},
-                          {true, true}};
-    SnakeGame game4 = new SnakeGame(board4, 1,0);
+    boolean[][] board4 = {{true}};
+    SnakeGame game4 = new SnakeGame(board4, 0,0);
 
     boolean[][] board5 = {{false, false, false, false, false, false},
                           {false, false, false, false, false, false},
@@ -80,13 +79,13 @@ public class SnakeGameTester {
 
     /*
      * findTailExhaustive()
-     * Test case 4: it shows that the program can handle a small board
-     * Therefore it should return (1,1,2) ---> TEST PASSED
+     * Test case 4: it shows what happens when a 2D array 1x1 is passed and the head is the true cell
+     * Therefore it should return (0,0,1) ---> TEST PASSED
      * game4
      */
     @Test
     public void testFindTailExhaustive4(){
-        int[] expected = new int[]{1,1,2};
+        int[] expected = new int[]{0,0,1};
         int[] actual = game4.findTailExhaustive();
 
         assertArrayEquals(expected, actual);
@@ -152,13 +151,13 @@ public class SnakeGameTester {
 
     /*
      * findTailRecursive()
-     * Test case 4: it should follow the true cells after the head to return the tail even with a small 2D array
-     * Therefore the program should decide which is the tail by comparing the position and neighbors (1,1,2)  ---> TEST PASSED
+     * Test case 4: it shows what happens when a 2D array 1x1 is passed and the head is the true cell
+     * The program should decide which is the tail by comparing the position and neighbors (0,0,1)  ---> TEST PASSED
      * game4
      */
     @Test
     public void testFindTailRecursive4(){
-        int[] expected = new int[]{1,1,2};
+        int[] expected = new int[]{0,0,1};
         int[] actual = game4.findTailExhaustive();
 
         assertArrayEquals(expected, actual);
