@@ -29,22 +29,21 @@ public class SnakeGame {
     public int[] findTailExhaustive(){
         resetCounters();
         int[] tail = new int[3];
-        int length = 0;
+        tail[2] = length();
 
         for(int i = 0; i < game.length; i++){
             for(int j = 0; j < game[i].length; j++){
                 exhaustiveChecks++;
                 if(game[i][j]){
-                    length++;
                     if((headPosition[0] != i || headPosition[1] != j) && neighbors(i,j) == 1){
                         tail[0] = i;
                         tail[1] = j;
+                        return tail;
                     }
                 }
             }
         }
 
-        tail[2] = length;
 
         return tail;
     }
@@ -77,6 +76,18 @@ public class SnakeGame {
             }
         }
 
+        //checks up
+        if(currentPosition[0] - 1 >= 0) {
+            if (currentPosition[0] - 1 != previousPosition[0]) {
+                if (game[currentPosition[0] - 1][currentPosition[1]]) {
+                    finalPosition [0] = currentPosition[0] - 1;
+                    finalPosition [1] = currentPosition[1];
+                    recursiveChecks++;
+                    return findTailRecursive(finalPosition, currentPosition);
+                }
+            }
+        }
+
         //checks down
         if(currentPosition[0] + 1 < game.length) {
             if (currentPosition[0] + 1 != previousPosition[0]) {
@@ -89,17 +100,7 @@ public class SnakeGame {
             }
         }
 
-        //checks up
-        if(currentPosition[0] - 1 >= 0) {
-            if (currentPosition[0] - 1 != previousPosition[0]) {
-                if (game[currentPosition[0] - 1][currentPosition[1]]) {
-                    finalPosition [0] = currentPosition[0] - 1;
-                    finalPosition [1] = currentPosition[1];
-                    recursiveChecks++;
-                    return findTailRecursive(finalPosition, currentPosition);
-                }
-            }
-        }
+
 
         //checks right
         if(currentPosition[1] + 1 < game.length) {
@@ -126,7 +127,7 @@ public class SnakeGame {
         }
 
         //default (invalid) values
-        return(new int[]{-1,-1});
+        return(new int[]{0, 0, 1});
     }
 
     /*
@@ -175,11 +176,11 @@ public class SnakeGame {
         exhaustiveChecks = 0;
     }
 
-    private static int getRecursiveChecks(){
+    public static int getRecursiveChecks(){
         return recursiveChecks;
     }
 
-    private static int getExhaustiveChecks(){
+    public static int getExhaustiveChecks(){
         return exhaustiveChecks;
     }
 }
