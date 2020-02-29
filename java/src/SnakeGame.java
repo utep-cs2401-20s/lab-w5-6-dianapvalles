@@ -1,5 +1,3 @@
-import java.util.function.ToDoubleBiFunction;
-
 public class SnakeGame {
     private boolean[][] game;
     private int[] headPosition = new int[2];;
@@ -25,7 +23,8 @@ public class SnakeGame {
         headPosition[1] = y;
     }
 
-    //Returns the x and y position of the tail in the grid, and the length of the snake on the board. Increments the exhaustiveChecks counter with each (x',y') cell that is examined.
+    //Returns the x and y position of the tail in the grid, and the length of the snake on the board.
+    // Increments the exhaustiveChecks counter with each (x',y') cell that is examined.
     public int[] findTailExhaustive(){
         resetCounters();
         int[] tail = new int[3];
